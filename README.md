@@ -1,9 +1,9 @@
 Alluxio on EMR
 ==============
 
-##### 1. bootstrap.sh로 각 서버(master/core)에 설치
+#### 1. bootstrap.sh로 각 서버(master/core)에 설치
 
-##### 2. EMR configuration 추가
+#### 2. EMR configuration 추가
 
 1.	Go to configurations
 2.	filter에서 "cluster configurations" drop-down box 클릭
@@ -38,6 +38,6 @@ Alluxio on EMR
 
 <br>
 
-##### 3. alluxio 설치 경로: /opt/alluxio-1.x.x-hadoop-2.x
+#### 3. alluxio 설치 경로: /opt/alluxio-1.x.x-hadoop-2.x
 
-##### 4. Alluxio UI: <MASTER_PUBLIC_DNS>:19999
+#### 4. Alluxio UI: <MASTER_PUBLIC_DNS>:19999
