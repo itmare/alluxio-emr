@@ -5,11 +5,11 @@ Alluxio on EMR
 
 #### 2. EMR configuration 추가
 
-1.	Go to configurations
-2.	filter에서 "cluster configurations" drop-down box 클릭
-3.	master instance 선택
-4.	"Reconfigure" 클릭
-5.	Json 으로 다음 configure 추가 (table로도 추가 가능)
+-	configurations으로 이동
+-	filter에서 "cluster configurations" drop-down box 클릭  
+-	master instance 선택  
+-	"Reconfigure" 클릭  
+-	Json 으로 다음 configure 추가 (table로도 추가 가능)
 
 	```json
 	[
@@ -30,13 +30,11 @@ Alluxio on EMR
 	]
 	```
 
-6.	"Apply this configuration to all active instance groups" 체크
+-	"Apply this configuration to all active instance groups" 체크
 
-7.	"Save changes" 클릭
+-	"Save changes" 클릭
 
-8.	cluster 자동으로 reconfiguring
-
-<br>
+-	cluster 자동으로 reconfiguring
 
 #### 3. alluxio 설치 경로: /opt/alluxio-1.x.x-hadoop-2.x
 
