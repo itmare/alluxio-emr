@@ -13,13 +13,16 @@ masterdns=`cat /mnt/var/lib/info/job-flow.json | jq -r '.masterPrivateDnsName'`
 
 cd /opt
 
+echo "Master web UI: " ${masterdns}
+
+exit -1
 
 sudo wget http://downloads.alluxio.org/downloads/files/${allu_ver}/alluxio-${allu_ver}-hadoop-${hadoop_ver}-bin.tar.gz
 if [ $? -ne 0 ]
-then 
+then
   echo "Error: Check the Alluxio or Hadoop Version"
   exit -1
-else 
+else
   echo "OK"
 fi
 
@@ -51,19 +54,22 @@ if [[ ${ismaster} == "true" ]]; then
   # bootstrap
   sudo ./bin/alluxio bootstrapConf ${masterdns}
 
+  # Add configure on alluxio-site.properties
   initialize_alluxio
   # Format
   sudo ./bin/alluxio format
   # Start master
   sudo ./bin/alluxio-start.sh master
+  echo "Master web UI: ${masterdns}"
 
 else
   # bootstrap
   sudo ./bin/alluxio bootstrapConf ${masterdns}
 
+  # Add configure on alluxio-site.properties
   initialize_alluxio
 
-    # Format
+  # Format
   sudo ./bin/alluxio format
   # Start worker
   sudo ./bin/alluxio-start.sh worker Mount
