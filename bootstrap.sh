@@ -8,12 +8,12 @@ hadoop_ver=$2
 sudo wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -O /usr/local/bin/jq
 sudo chmod 755 /usr/local/bin/jq
 
-ismaster=`cat /mnt/var/lib/info/instance.json | jq -r '.isMaster'`
-masterdns=`cat /mnt/var/lib/info/job-flow.json | jq -r '.masterPrivateDnsName'`
+isMaster=`cat /mnt/var/lib/info/instance.json | jq -r '.isMaster'`
+masterDns=`cat /mnt/var/lib/info/job-flow.json | jq -r '.masterPrivateDnsName'`
 
 cd /opt
 
-echo "Master web UI: " ${masterdns}
+echo "Master web UI: " ${masterDns}
 
 exit -1
 
@@ -48,11 +48,11 @@ initialize_alluxio () {
 
 cd alluxio-${allu_ver}-hadoop-${hadoop_ver}
 
-if [[ ${ismaster} == "true" ]]; then
+if [[ ${isMaster} == "true" ]]; then
   # sudo cp ./conf/alluxio-site.properties.template ./conf/alluxio-site.properties
   # sudo echo "alluxio.master.hostname=localhost" >> ./conf/alluxio-site.properties
   # bootstrap
-  sudo ./bin/alluxio bootstrapConf ${masterdns}
+  sudo ./bin/alluxio bootstrapConf ${masterDns}
 
   # Add configure on alluxio-site.properties
   initialize_alluxio
@@ -60,11 +60,9 @@ if [[ ${ismaster} == "true" ]]; then
   sudo ./bin/alluxio format
   # Start master
   sudo ./bin/alluxio-start.sh master
-  echo "Master web UI: ${masterdns}"
-
 else
   # bootstrap
-  sudo ./bin/alluxio bootstrapConf ${masterdns}
+  sudo ./bin/alluxio bootstrapConf ${masterDns}
 
   # Add configure on alluxio-site.properties
   initialize_alluxio
