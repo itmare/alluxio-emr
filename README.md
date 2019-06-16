@@ -23,8 +23,8 @@ Alluxio on EMR
 	  {
 	    "Classification": "spark-defaults",
 	    "Properties": {
-	          "spark.driver.extraClassPath": ":/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/opt/alluxio-1.8.1-hadoop-2.8/client/alluxio-1.8.1-client.jar",
-	          "spark.executor.extraClassPath": ":/opt/alluxio-1.8.1-hadoop-2.8/client/alluxio-1.8.1-client.jar"
+	          "spark.driver.extraClassPath": ":/usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/opt/alluxio-1.8.1-hadoop-2.9/client/alluxio-1.8.1-client.jar",
+	          "spark.executor.extraClassPath": ":/opt/alluxio-1.8.1-hadoop-2.9/client/alluxio-1.8.1-client.jar"
 	     }
 	  }
 	]
@@ -39,3 +39,21 @@ Alluxio on EMR
 #### 3. alluxio 설치 경로: /opt/alluxio-1.x.x-hadoop-2.x
 
 #### 4. Alluxio UI: <MASTER_PUBLIC_DNS>:19999
+
+<br><br>
+
+```shell
+# alluxio client는 hadoop client user가 foo인것을 발견하고, foo 유저 역할을 하는 allu 유저로써 서버와 연결한다.
+# 이 impersonation을 통해서, data interaction은 foo유저로써 가능하게 된다.
+# client-side hadoop impersonation을 위한 alluxio 설정은 client와 master configuration이 반드시 필요하다.
+alluxio.master.security.impersonation.root.users=*
+alluxio.master.security.impersonation.root.groups=*
+alluxio.master.security.impersonation.client.users=*
+alluxio.master.security.impersonation.client.groups=*
+alluxio.security.login.impersonation.username=none
+alluxio.security.authorization.permission.enabled=false
+
+
+# alluxio.master.security.impersonation.alluxio_user.users=user1, user2
+# => alluxio client user인 alluxio_uesr는 user1과 user2 역할을 하는 것을 허락한다.
+```
